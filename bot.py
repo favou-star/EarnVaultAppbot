@@ -244,18 +244,19 @@ def create_payment(chat_id, email):
 
         result = response.json()
 
-if not result.get("status"):
-    print(
-        "Paystack initialization failed:",
-        response.status_code,
-        result.get("message"),
-        result.get("errors")
-    )
-    send_message(
-        chat_id,
-        "Payment could not be created. Please contact support."
-    )
-    return
+
+        if not result.get("status"):
+            print(
+                "Paystack initialization failed:",
+                response.status_code,
+                result.get("message"),
+                result.get("errors")
+            )
+            send_message(
+                chat_id,
+                "Payment could not be created. Please contact support."
+            )
+            return
 
         data = result["data"]
         reference = data["reference"]
